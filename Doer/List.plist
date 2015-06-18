@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<dict>
+			<key>item</key>
+			<string>Achieve an item with short right slide</string>
+			<key>state</key>
+			<string>open</string>
+		</dict>
+		<dict>
+			<key>item</key>
+			<string>With a long right drag to back the list</string>
+			<key>state</key>
+			<string>open</string>
+		</dict>
+		<dict>
+			<key>item</key>
+			<string>Swipe left to delete an item</string>
+			<key>state</key>
+			<string>open</string>
+		</dict>
+		<dict>
+			<key>item</key>
+			<string>Pull down to add an item</string>
+			<key>state</key>
+			<string>open</string>
+		</dict>
+		<dict>
+			<key>item</key>
+			<string>Tap a cell to edit an item</string>
+			<key>state</key>
+			<string>open</string>
+		</dict>
+		<dict>
+			<key>item</key>
+			<string>Long press to move an item</string>
+			<key>state</key>
+			<string>open</string>
+		</dict>
+	</array>
+	<array>
+		<dict>
+			<key>item</key>
+			<string>Have fun!!!</string>
+			<key>state</key>
+			<string>open</string>
+		</dict>
+		<dict>
+			<key>item</key>
+			<string>Go shopping</string>
+			<key>state</key>
+			<string>open</string>
+		</dict>
+	</array>
+	<array>
+		<dict>
+			<key>list</key>
+			<string>MyList</string>
+			<key>state</key>
+			<string>open</string>
+		</dict>
+		<dict>
+			<key>list</key>
+			<string>OtherList</string>
+			<key>state</key>
+			<string>open</string>
+		</dict>
+	</array>
+</array>
+</plist>
