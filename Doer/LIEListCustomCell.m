@@ -35,11 +35,10 @@
     
     _myContentView = [[UIView alloc] init];
     _myContentView.frame = CGRectMake(0, 0, width, cellHeight);
-    //_myContentView.backgroundColor = [LIEColor ListCellOpenColor];
     [self.contentView addSubview:_myContentView];
     
     _myText = [[UILabel alloc] init];
-    _myText.frame = CGRectMake(15, self.contentView.center.y, width - 30, cellHeight);
+    _myText.frame = CGRectMake(15, _myContentView.frame.origin.y, width - 30, cellHeight);
     [self.myContentView addSubview:_myText];
     _myText.textColor = [LIEColor ListTextOpenColor];
     
