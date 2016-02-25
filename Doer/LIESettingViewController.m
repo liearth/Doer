@@ -11,6 +11,8 @@
 
 @interface LIESettingViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+
 @end
 
 @implementation LIESettingViewController
@@ -19,17 +21,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    //self.tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
-    //self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(44, 0, 0, 0);
+
     self.tableView.separatorColor = [UIColor clearColor];
     [mySwitch addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventValueChanged];
+    NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+    self.versionLabel.text = [NSString stringWithFormat:@"%@ %@", infoDict[@"CFBundleName"], infoDict[@"CFBundleShortVersionString"]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,36 +35,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //NSLog(@"settingViewController will appear");
     mySwitch.on = [self readSwitchState];
 }
-
-#pragma mark - Table view data source
-
-/*
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 2;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 3;
-}
- 
- */
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *switchCell = [self.tableView dequeueReusableCellWithIdentifier:@"night"];
-    UISwitch *mySwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-    switchCell.textLabel.text = @"Night Mood";
-            
-    [switchCell.contentView addSubview:mySwitch];
-            
-    return switchCell;
-}
- */
 
 - (void)changeColor:(UISwitch *)theSwitch
 {
@@ -90,10 +58,6 @@
     
     NSUserDefaults *saveDefaults = [NSUserDefaults standardUserDefaults];
     [saveDefaults setObject:array forKey:@"nightMood"];
-    
-    //NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-   // NSString *fileName = [path stringByAppendingPathComponent:@"nightMood"];
-    //[NSKeyedArchiver archiveRootObject:array toFile:fileName];
 }
 
 - (void)saveSwitchState:(BOOL)onOff

@@ -43,17 +43,11 @@
     
     _listArray = [[NSMutableArray alloc] init];
     _listArray = [self readListAtLastIndexPath];
-
-//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognizer:)];
-    //[self.tableView addGestureRecognizer:longPress];
     
     UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settingBar"] style:UIBarButtonItemStyleDone target:self action:@selector(showSettingBar)];
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addBar"] style:UIBarButtonItemStyleDone target:self action:@selector(addList)];
     self.navigationItem.leftBarButtonItem = leftBarButton;
     self.navigationItem.rightBarButtonItem = rightBarButton;
-    
-    //self.navigationController.navigationBar.barTintColor = [UIColor yellowColor];
-    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewList:) name:@"ADDLIST" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(editList:) name:@"EDITLIST" object:nil];
@@ -66,9 +60,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated
-{
-    //_list = [self creatAndReadListFile];
-    self.tableView.backgroundColor = [LIEColor ListViewBackgroundColor];
+{    self.tableView.backgroundColor = [LIEColor ListViewBackgroundColor];
     [self.tableView setSeparatorColor:[UIColor clearColor]];//分割线的颜色
     [self.tableView reloadData];
     
