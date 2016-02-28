@@ -35,6 +35,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     mySwitch.on = [self readSwitchState];
 }
 

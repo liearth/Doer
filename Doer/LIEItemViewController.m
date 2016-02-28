@@ -108,6 +108,8 @@ static UIImageView *addView;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     [self.tableView setSeparatorColor:[UIColor clearColor]];//分割线的颜色
 }
 
@@ -571,7 +573,7 @@ static UIImageView *addView;
     NSString *plistPath = [filePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@",@"MyList",plistSuffix]];
     
     NSMutableArray *listArray = [[NSMutableArray alloc] initWithContentsOfFile:plistPath];
-    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSMutableArray *array = nil;
     array = [listArray objectAtIndex:indexPath.row];
     
     return array;

@@ -60,7 +60,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated
-{    self.tableView.backgroundColor = [LIEColor ListViewBackgroundColor];
+{
+    [super viewWillAppear:animated];
+    
+    self.tableView.backgroundColor = [LIEColor ListViewBackgroundColor];
     [self.tableView setSeparatorColor:[UIColor clearColor]];//分割线的颜色
     [self.tableView reloadData];
     
@@ -389,7 +392,7 @@
 
 - (void)changeListState:(NSString *)state atIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableArray *itemArray = [[NSMutableArray alloc] init];
+    NSMutableArray *itemArray = nil;
     itemArray = [_list objectAtIndex:indexPath.row];
     for (int i = 0; i < itemArray.count; i++) {
         [[itemArray objectAtIndex:i] setObject:state forKey:stateKey];

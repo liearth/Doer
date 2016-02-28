@@ -12,7 +12,7 @@
 
 - (id)initWithDict:(NSMutableDictionary *)dict
 {
-    if (self == [super init]) {
+    if (self = [super init]) {
         self.item = dict[@"item"];
         self.state = dict[@"state"];
         self.list = dict[@"list"];
