@@ -30,64 +30,16 @@ static UIImageView *addView;
 
 @synthesize itemArray = _itemArray;
 @synthesize originalString;
-//@synthesize arrowView = _arrowView;
-//@synthesize addView = _addView;
 @synthesize presentIndexPath = _presentIndexPath;
 @synthesize listIndexPath = _listIndexPath;
 @synthesize itemEditViewController = _itemEditViewController;
-
-
-//- (id)initWithStyle:(UITableViewStyle)style
-//{
-//    self = [super initWithStyle:style];
-//    if (self) {
-//        // Custom initialization
-//        
-//        //[self.tableView registerClass:[LIEItemCustomCell class] forCellReuseIdentifier:@"itemCell"];
-//    }
-//    return self;
-//}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *filePath = [path objectAtIndex:0];
-//    NSString *plistSuffix = @".plist";
-//    NSString *stateSuffix = @"State";
-//    
-//    theListStateName = [NSString stringWithFormat:@"%@%@",theListName,stateSuffix];
-//
-//    NSString *plistPath = [filePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@",theListName,plistSuffix]];
-//    NSString *statePlistPath = [filePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@",theListStateName,plistSuffix]];
-//    
-//    if (![fileManager fileExistsAtPath:plistPath] && ![fileManager fileExistsAtPath:statePlistPath])//如果plist文件不存在
-//    {
-//        NSLog(@"The file does not exist, it will creat a plist file");
-//        [fileManager createFileAtPath:plistPath contents:nil attributes:nil];
-//        [fileManager createFileAtPath:statePlistPath contents:nil attributes:nil];
-//        
-//        NSMutableArray *array = [[NSMutableArray alloc] initWithObjects:@"Achieve an item with short right slide",@"With a long right drag to back the list",@"Swipe left to delete an item",@"Pull down to add an item",@"Tap a cell to edit an item",@"Long press to move an item", nil];
-//        NSMutableArray *arrayState = [[NSMutableArray alloc] init];
-//        for (int i = 0; i < array.count; i++) {
-//            [arrayState addObject:@"OPEN"];
-//        }
-//        
-//        [arrayState writeToFile:statePlistPath atomically:YES];
-//        [array writeToFile:plistPath atomically:YES];
-//    }
-//    else
-//    {
-//        NSLog(@"The file is here");
-//    }
-    
     _itemArray = [[NSMutableArray alloc] init];
     _itemArray = [self readItemAtIndex:_listIndexPath];
-    
-//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognizer:)];
-    //[self.tableView addGestureRecognizer:longPress];
     
     UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"sideBar"] style:UIBarButtonItemStyleDone target:self action:@selector(showSideBar)];
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addBar"] style:UIBarButtonItemStyleDone target:self action:@selector(addItem)];
@@ -151,9 +103,6 @@ static UIImageView *addView;
         cell.listModel = [[self readModelAtIndex] objectAtIndex:indexPath.row];
     }
     
-//    NSUInteger row = [indexPath row];
-//    cell.listModel = [[self readModelAtIndex] objectAtIndex:row];
-    
     return cell;
 }
 
@@ -190,114 +139,6 @@ static UIImageView *addView;
     
     [self writeToFile];
 }
-
-/*
-- (void)longPressGestureRecognizer:(id)sender
-{
-    UILongPressGestureRecognizer *longPress = (UILongPressGestureRecognizer *)sender;
-    UIGestureRecognizerState state = longPress.state;
-    
-    CGPoint location = [longPress locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    
-    static UIView       *snapshot = nil;        ///< A snapshot of the row user is moving.
-    static NSIndexPath  *sourceIndexPath = nil; ///< Initial index path, where gesture begins.
-    
-    switch (state)
-    {
-        case UIGestureRecognizerStateBegan:
-        {
-            //[[NSNotificationCenter defaultCenter] postNotificationName:@"CANNOTPANITEMCELL" object:self userInfo:nil];
-            if (indexPath)
-            {
-                sourceIndexPath = indexPath;
-                
-                //UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-                LIEItemCustomCell *cell = (LIEItemCustomCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-                //[cell.myContentView removeGestureRecognizer:cell.panGesture];
-                
-                // Take a snapshot of the selected row using helper method.
-                snapshot = [self customSnapshoFromView:cell.myContentView];
-                
-                // Add the snapshot as subview, centered at cell's center...
-                __block CGPoint center = cell.center;
-                snapshot.center = center;
-                snapshot.alpha = 1.0;
-                [self.tableView addSubview:snapshot];
-                [UIView animateWithDuration:0.1 animations:^{
-                    
-                    // Offset for gesture location.
-                    center.y = location.y;
-                    snapshot.center = center;
-                    snapshot.transform = CGAffineTransformMakeScale(1.2, 1.2);
-                    //snapshot.alpha = 1;
-                    
-                    // Black out.
-                } completion:^(BOOL finished){
-                    cell.hidden = YES;
-                    cell.panGesture.enabled = NO;
-                }];
-            }
-            break;
-        }
-            
-        case UIGestureRecognizerStateChanged:
-        {
-            CGPoint center = snapshot.center;
-            center.y = location.y;
-            snapshot.center = center;
-            
-            // Is destination valid and is it different from source?
-            if (indexPath && ![indexPath isEqual:sourceIndexPath]) {
-                // ... update data source.
-                [_itemArray exchangeObjectAtIndex:indexPath.row withObjectAtIndex:sourceIndexPath.row];
-                
-                // ... move the rows.
-                [self.tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:indexPath];
-                
-                // ... and update source so it is in sync with UI changes.
-                sourceIndexPath = indexPath;
-            }
-            break;
-        }
-            
-        default:
-        {
-            // Clean up.
-            LIEItemCustomCell *cell = (LIEItemCustomCell *)[self.tableView cellForRowAtIndexPath:sourceIndexPath];
-            [UIView animateWithDuration:0.1 animations:^{
-                
-                snapshot.center = cell.center;
-                snapshot.transform = CGAffineTransformIdentity;
-                snapshot.alpha = 1;
-                
-                // Undo the black-out effect we did.
-            } completion:^(BOOL finished) {
-                cell.hidden = NO;
-                cell.panGesture.enabled = YES;
-                [snapshot removeFromSuperview];
-                snapshot = nil;
-            }];
-            sourceIndexPath = nil;
-            break;
-        }
-    }
-    [self writeToFile];
-}
-
-- (UIView *)customSnapshoFromView:(UIView *)inputView {
-    
-    UIView *snapshot = [inputView snapshotViewAfterScreenUpdates:YES];
-    snapshot.layer.masksToBounds = NO;//是否隐藏边界
-    snapshot.layer.cornerRadius = 0;//将图层的边框设置为圆脚
-    snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0);//设置阴影的偏移量
-    snapshot.layer.shadowRadius = 5.0;//设置阴影的半径
-    snapshot.layer.shadowOpacity = 0.4;//设置阴影的不透明度
-    
-    return snapshot;
-}
- */
-
 
 //The delegate method
 - (void)panLeftToDeleteCell:(UITableViewCell *)myCell//向左滑动删除cell，注册函数

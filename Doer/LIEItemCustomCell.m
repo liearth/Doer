@@ -280,31 +280,6 @@
     }
 }
 
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-/*
-    if ([gestureRecognizer isKindOfClass:[UITableViewCell class]] && [otherGestureRecognizer isKindOfClass:[UITableView class]]) {
-        return NO;
-    }
-*/
-    return YES;
-}
-
-
-/*
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    CGPoint location = [self.panGesture translationInView:self.myContentView];
-    NSLog(@"the location is %f",location.x);
-    if ([touch.view isKindOfClass:[UIControl class]])
-    {
-        return NO;
-    }
-    return YES;
-}
-*/
-
 - (void)canNotPan:(NSNotification *)notification
 {
     self.panGesture.enabled = NO;

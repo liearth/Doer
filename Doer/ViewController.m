@@ -68,7 +68,6 @@
     [self.tableView reloadData];
     
     self.navigationController.navigationBar.barTintColor = [LIEColor navigationBarColor];
-    NSLog(@"viewController will appear");
 }
 
 - (void)dealloc
